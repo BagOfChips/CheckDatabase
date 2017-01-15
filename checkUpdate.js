@@ -119,6 +119,9 @@ cron.scheduleJob('30 * * * * *', function(){
                                 "\" is now on sale for " + currentBBPrice + " at Best Buy. " +
                                 BBurl;
 
+                            // delete query
+                            db.run('DELETE FROM users WHERE id = ' + row.id);
+                            
                             smtpTransport.sendMail(mailOptions, function(error, response){
                                 if(error){
                                     console.log(error);
@@ -128,10 +131,6 @@ cron.scheduleJob('30 * * * * *', function(){
                                 smtpTransport.close();
                             });
                         }
-
-                        // delete query
-                        db.run('DELETE FROM users WHERE id = ' + row.id);
-
                     }else if(currentAZPrice <= currentBBPrice){
                         // AZ lower price
                         // check if userPrice is lower
@@ -145,7 +144,10 @@ cron.scheduleJob('30 * * * * *', function(){
                                 "Your requested product: \"" + AZproduct +
                                 "\" is now on sale for " + currentAZPrice + " at Amazon. " +
                                 AZurl;
-
+                            
+                            // delete query
+                            db.run('DELETE FROM users WHERE id = ' + row.id);
+                            
                             smtpTransport.sendMail(mailOptions, function(error, response){
                                 if(error){
                                     console.log(error);
@@ -155,9 +157,6 @@ cron.scheduleJob('30 * * * * *', function(){
                                 smtpTransport.close();
                             });
                         }
-
-                        // delete query
-                        db.run('DELETE FROM users WHERE id = ' + row.id);
                     }
                 }else if(currentBBPrice){
                     //var mailOptions = {};
@@ -173,6 +172,9 @@ cron.scheduleJob('30 * * * * *', function(){
                             "\" is now on sale for " + currentBBPrice + " at Best Buy. " +
                             BBurl;
 
+                        // delete query
+                        db.run('DELETE FROM users WHERE id = ' + row.id);   
+                        
                         smtpTransport.sendMail(mailOptions, function(error, response){
                             if(error){
                                 console.log(error);
@@ -182,8 +184,6 @@ cron.scheduleJob('30 * * * * *', function(){
                             smtpTransport.close();
                         });
                     }
-                    // delete query
-                    db.run('DELETE FROM users WHERE id = ' + row.id);
                 }
             });
         });
